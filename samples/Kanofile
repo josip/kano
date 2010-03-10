@@ -8,3 +8,24 @@ Time := Namespace clone do(
     """Prints local date and time."""
     Date now println)
 )
+
+Directory describe do(
+  task("files") describe("Prints names of the files in current directory") after(result, result map(name) sort)
+
+  task("mk") do(
+    describe("Creates new directory.")
+    callsSlot("create")
+
+    before(args,
+      targetObj = Directory with(args at(0))
+      args)
+
+    after(result, "Created directory")
+  )
+) done
+
+Namespaces Directory do(
+  path := task(
+    """Prints current working directory."""
+    Path absolute(Directory path) println)
+)

@@ -8,5 +8,5 @@
   "dependencies": {
     "protos": "Yajl"
   },
-  "protos": ["Kano", "Namespace", "Namespaces"]
+  "protos": ["Kano", "Namespace", "Namespaces", "ObjectDescriber"]
 }

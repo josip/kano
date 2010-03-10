@@ -20,7 +20,7 @@ Namespaces := Object clone do(
 
     ns := option(
       """Lists all namespaces."""
-      Namespaces slotNames sort join(", ") println)
+      Namespaces slotNames remove("type") sort join(", ") println)
 
     v := option(
       """Prints Kano version."""
@@ -31,7 +31,7 @@ Namespaces := Object clone do(
     h := option(
       """Quick usage notes."""
 
-      options := self slotNames remove("type") sort join("|")
+      options := Namespaces Options slotNames remove("type") sort join("|")
       "Usage: kano [-#{options}] [namespace:]taskName arg1 arg2..." interpolate println)
   )
 )
