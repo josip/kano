@@ -1,10 +1,10 @@
 h1. Kano, Make for Io
 
-Kano (from Greek Κάνω, _make_) is a simple "Rake":http://github.com/jimweirich/rake like implementation for Io.
+Kano (from Greek Κάνω, _make_) is a simple Rake-like tool for Io.
 
 h2. Installation
 
-Kano is being installed automatically with "Eerie":http://github.com/josip/Eerie as a dependency, but if you insist:
+Kano will be installed automagically with "Eerie":http://github.com/josip/Eerie as a dependency, but if you insist:
 <pre><code>
 $ eerie pkg:install git://github.com/josip/Kano
 </code></pre>
@@ -17,7 +17,7 @@ $ kano -tasks
 -h         Quick usage notes.
 -ns        Lists all namespaces.
 -tasks     Lists all available tasks and options.
--v         Prints Kano version..
+-v         Prints Kano version.
 $ kano -v
 Kano v0.1
 </code></pre>
