@@ -1,0 +1,10 @@
+Options do(
+  uname := option(
+    """Prints platform name."""
+    System runCommand("uname") stdout strip println))
+
+Time := Namespace clone do(
+  date := task(
+    """Prints local date and time."""
+    Date now println)
+)

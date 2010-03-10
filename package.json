@@ -1,0 +1,12 @@
+{
+  "version": 0.1,
+  "author": "Josip Lisec",
+  "description": "Rake-like utility for Io.",
+  "readme": "README.textile",
+  "category": "Utility",
+
+  "dependencies": {
+    "protos": "Yajl"
+  },
+  "protos": ["Kano", "Namespace", "Namespaces"]
+}
