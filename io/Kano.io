@@ -4,13 +4,9 @@ Kano := Object clone do(
   supportedFiles      := list("Kanofile", "make.io")
 
   run := method(
-    if(self useExternalFile != false,
-      kanofile := self supportedFiles detect(name,
-        File with(name) exists)
-      kanofile isNil ifTrue(
-        Exception raise("Kanofile (or make.io) file is missing."))
-
-      Namespaces doFile(kanofile))
+    self useExternalFile ifTrue(
+      self findKanofiles(Directory with(System launchPath)) foreach(f,
+        Namespaces doFile(f path)))
 
     allArgs := System args exSlice(1) select(exSlice(0, 1) != "-")
     task := allArgs first
@@ -38,6 +34,19 @@ Kano := Object clone do(
     if(ns hasSlot(taskName),
       ns getSlot(taskName) performWithArgList("call", taskArgs),
       Exception raise("Unknown task: " .. taskName)))
+
+  findKanofiles := method(dir,
+    dir isNil ifTrue(return(list()))
+
+    files := list(self supportedFiles map(name,
+      File with((dir path) .. name)) detect(exists))
+
+    tasksDir := dir directoryNamed("tasks")
+    tasksDir exists ifTrue(
+      files = files union(tasksDir filesWithExtension("io") map(path)))
+
+    files = files select(!= nil)
+    if(files isEmpty, self findKanofiles(dir parentDirectory), files))
 
   allTasks := method(
     result := Map clone

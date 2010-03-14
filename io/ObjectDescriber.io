@@ -1,22 +1,24 @@
 ObjectDescriber := Object clone do(
   namespace     ::= nil
   targetObj     ::= nil
+  requiresClone ::= nil
   tasks         := nil
-  defaults      := nil
-  requiresClone := nil
 
   init := method(
     self targetObj = nil
-    self tasks = List clone
-    self defaults = Task clone
-    self requiresClone = false)
+    self requiresClone = false
+    self tasks = List clone)
 
   with := method(obj,
     self clone setTargetObj(obj))
 
   task := method(name,
-    target_ := if(self requiresClone, self createClone, self targetObj)
-    t := Task with(name, target_, self requiresClone)
+    t := Task clone\
+      setName(name)\
+      setTargetObj(self targetObj)\
+      setRequiresClone(self requiresClone)\
+      setCreateClone(self getSlot("createClone"))
+
     self tasks append(t)
     t)
 
@@ -41,6 +43,7 @@ ObjectDescriber := Object clone do(
     formatterOptions  ::= nil
     targetObj         ::= nil
     requiresClone     ::= nil
+    createClone       ::= nil
     beforeMethod      ::= nil
     afterMethod       ::= nil
 
@@ -49,8 +52,8 @@ ObjectDescriber := Object clone do(
     dontFormatResult  := method(self setFormatResult(false))
     dontPrintResult   := method(self setPrintResult(false))
     leaveOutput       := method(self dontFormatResult dontPrintResult)
-    returns           := method(rtype, options,
-      self setReturnType(rtype) setFormatterOptions(options))
+    returns           := method(typeProto, options,
+      self setReturnType(typeProto type asMutable makeFirstCharacterLowercase) setFormatterOptions(options))
 
     before := method(
       self getSlot("beforeMethod")\
@@ -70,11 +73,9 @@ ObjectDescriber := Object clone do(
       formatterOptions  = nil
       targetObj         = nil
       requiresClone     = false
+      createClone       = false
       beforeMethod      = method(args, args)
       afterMethod       = method(result, result))
-
-    with := method(name_, targetObj_, requiresClone_,
-      self clone setName(name_) setTargetObj(targetObj_) setRequiresClone(requiresClone_))
 
     build := method(namespace,
       self slotName isNil ifTrue(
@@ -82,6 +83,9 @@ ObjectDescriber := Object clone do(
 
       taskBlock := block(
         args := self beforeMethod(call evalArgs)
+        
+        self requiresClone ifTrue(
+          self targetObj = self createClone(args))
 
         result := self targetObj performWithArgList(self slotName, args)
         result = self afterMethod(result)
@@ -119,18 +123,3 @@ ObjectDescriber := Object clone do(
 
 Object describe := method(
   ObjectDescriber with(self))
-
-
-Example := Object clone do(
-  names := method(
-    list(1, 2, 3, 4) append(call evalArgs) flatten)
-  
-  bands := method(
-    Map with("Keane", 5,
-      "Coldplay", 4,
-      "Delphic", 4,
-      "Marina & The Diamonds", 3.8))
-  
-  time := method(
-    Date now)
-)
