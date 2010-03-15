@@ -57,7 +57,7 @@ Kano := Object clone do(
           prettyNsName := if(ns type == "Default",
             "",
             (ns type asMutable makeFirstCharacterLowercase) .. (self namespaceSeparator))
-          ns type == "Options" ifTrue(prettyNsName = "-")
+          (ns type == "Options") ifTrue(prettyNsName = "-")
 
           result atPut(prettyNsName .. slotName, ns getLocalSlot(slotName) description))))
     result)
