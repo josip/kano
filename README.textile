@@ -1,7 +1,6 @@
 h1. Kano, Make for Io
 
-Kano (from Greek Κάνω, _make_) is a simple "Make":http://www.gnu.org/software/make/, "Rake":http://rake.rubyforge.org/ and "Thor":http://github.com/wycats/thor
-inspired tool for Io.
+Kano (from Greek Κάνω, _make_) is a simple "Make":http://www.gnu.org/software/make/, "Rake":http://rake.rubyforge.org/ and "Thor":http://github.com/wycats/thor inspired tool for Io.
 
 h2. Installation
 
