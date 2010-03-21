@@ -1,23 +1,33 @@
 h1. Kano, Make for Io
 
-Kano (from Greek Κάνω, _make_) is a simple Rake-like tool for Io.
+Kano (from Greek Κάνω, _make_) is a simple "Make":http://www.gnu.org/software/make/, "Rake":http://rake.rubyforge.org/ and "Thor":http://github.com/wycats/thor
+inspired tool for Io.
 
 h2. Installation
 
-Kano will be installed automagically with "Eerie":http://github.com/josip/Eerie as a dependency, but if you insist:
+Kano will be installed automagically with "Eerie":http://github.com/josip/eerie as a dependency, but if you insist:
 <pre><code>
-$ eerie pkg:install git://github.com/josip/Kano
+$ eerie pkg:install git://github.com/josip/kano
 </code></pre>
 
 h2. Usage
 
-You can use Kano just like any other Make-like tool, just place a <code>Kanofile</code> or <code>make.io</code> into current working directory and you're ready to go.
+You can use Kano just like any other Make-like tool, place a <code>Kanofile</code> or <code>make.io</code>
+into current working directory (tasks/ directory) and you're ready to go (Kano will actually check parent directories, too).
 <pre><code>
 $ kano -tasks
--h         Quick usage notes.
+-help      Quick usage notes.
 -ns        Lists all namespaces.
 -tasks     Lists all available tasks and options.
--v         Prints Kano version.
-$ kano -v
+-V         Prints Kano version.
+$ kano -V
 Kano v0.1
 </code></pre>
+
+h2. Todo
+
+  * Prettier output
+  * Defining arguments by name (ex. <code>kano print --first-name=Robo --last-name=Cop</code>)
+  * Documentation
+  * Tests
+  

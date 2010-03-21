@@ -22,13 +22,13 @@ Namespaces := Object clone do(
       """Lists all namespaces."""
       Namespaces slotNames remove("type") sort join(", ") println)
 
-    v := option(
+    V := option(
       """Prints Kano version."""
       kanoPkg := File with((Eerie activeEnv path) .. "/addons/Kano/package.json")
       pkgInfo := Yajl parseJson(kanoPkg openForReading contents)
       ("Kano v" .. (pkgInfo at("version"))) println)
 
-    h := option(
+    help := option(
       """Quick usage notes."""
 
       options := Namespaces Options slotNames remove("type") sort join("|")
