@@ -15,10 +15,19 @@ You can use Kano just like any other Make-like tool, place a <code>Kanofile</cod
 into current working directory (tasks/ directory) and you're ready to go (Kano will actually check parent directories, too).
 <pre><code>
 $ kano -T
--help      Quick usage notes.
--ns        Lists all namespaces.
--tasks     Lists all available tasks and options.
--V         Prints Kano version.
+Default:
+  Usage: kano <task>
+
+Options:
+  Usage: kano -<task>
+
+  help 
+    Quick usage notes.
+
+  ns 
+    Lists all namespaces.
+
+No task was given. See -T for list of available tasks.
 $ kano -V
 Kano v0.1
 </code></pre>

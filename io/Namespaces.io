@@ -14,6 +14,8 @@ Namespaces := Object clone do(
       scriptName := System launchScript split("/") last
 
       Namespaces foreachSlot(nsName, ns,
+        if(nsName == "type", continue)
+
         (nsName colourize("cyan", "bold") .. ":") printlnColours
         prettyNsName := if(nsName == "Default", "", (nsName asMutable makeFirstCharacterLowercase) .. ":")
         (nsName == "Options") ifTrue(prettyNsName = "-")
