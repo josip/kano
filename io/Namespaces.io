@@ -10,20 +10,32 @@ Namespaces := Object clone do(
   <code>kano -tasks</code>*/
   Options := Namespace clone do(
     T := option(
-      """Lists all available tasks and options."""
-      ls := System launchScript split("/") last
+      """
+      returns nil
+      
+      ---
+      Lists all available tasks and options.
+      """
+      scriptName := System launchScript split("/") last
 
       Namespaces foreachSlot(nsName, ns,
-        (nsName colourize("cyan", "underline") .. ":") printlnColours
-        prettyNsName := if(nsName == "Default", "", nsName .. ":")
+        (nsName colourize("cyan", "bold") .. ":") printlnColours
+        prettyNsName := if(nsName == "Default", "", (nsName makeFirstCharacterLowercase) .. ":")
         (nsName == "Options") ifTrue(prettyNsName = "-")
 
-        "  Usage: #{ls} #{prettyNsName}<task>\n" interpolate println
-        ns slotNames select(slot, (slot exSlice(0, 1) != "_") and (ns getLocalSlot(slot) type == "Block")) sort foreach(slot,
+        # TODO: Add namespace descriptions
+        "  Usage: #{scriptName} #{prettyNsName}<task>\n" interpolate println
+
+        nsSlots := ns slotNames\
+          select(exSlice(0, 1) != "_")\
+          select(slot, ns getLocalSlot(slot) type == "Block")\
+          sort
+
+        nsSlots foreach(slot,
           slotArgs := ns getSlot(slot) argumentNames map(arg, "<" .. arg ..">") join(" ")
           slotC := slot colourize("cyan", "bold")
           "  #{slotC} #{slotArgs}" interpolate printlnColours
-          ("    " .. ns getSlot(slot) description) println
+          ("    " .. (ns getSlot(slot) description)) println
           "" println)))
 
     ns := option(
