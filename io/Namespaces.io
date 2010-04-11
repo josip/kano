@@ -10,17 +10,12 @@ Namespaces := Object clone do(
   <code>kano -tasks</code>*/
   Options := Namespace clone do(
     T := option(
-      """
-      returns nil
-      
-      ---
-      Lists all available tasks and options.
-      """
+      """Lists all available tasks and options."""
       scriptName := System launchScript split("/") last
 
       Namespaces foreachSlot(nsName, ns,
         (nsName colourize("cyan", "bold") .. ":") printlnColours
-        prettyNsName := if(nsName == "Default", "", (nsName makeFirstCharacterLowercase) .. ":")
+        prettyNsName := if(nsName == "Default", "", (nsName asMutable makeFirstCharacterLowercase) .. ":")
         (nsName == "Options") ifTrue(prettyNsName = "-")
 
         # TODO: Add namespace descriptions

@@ -14,7 +14,7 @@ h2. Usage
 You can use Kano just like any other Make-like tool, place a <code>Kanofile</code> or <code>make.io</code>
 into current working directory (tasks/ directory) and you're ready to go (Kano will actually check parent directories, too).
 <pre><code>
-$ kano -tasks
+$ kano -T
 -help      Quick usage notes.
 -ns        Lists all namespaces.
 -tasks     Lists all available tasks and options.
