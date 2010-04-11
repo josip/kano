@@ -49,18 +49,4 @@ Kano := Object clone do(
 
     files = files select(!= nil)
     if(files isEmpty, self findKanofiles(dir parentDirectory), files))
-
-  allTasks := method(
-    result := Map clone
-
-    Namespaces foreachSlot(nsName, ns,
-      ns slotNames sort foreach(slotName,
-        ((slotName exSlice(0, 1) != "_") and (ns getLocalSlot(slotName) type == "Block")) ifTrue(
-          prettyNsName := if(ns type == "Default",
-            "",
-            (ns type asMutable makeFirstCharacterLowercase) .. (self namespaceSeparator))
-          (ns type == "Options") ifTrue(prettyNsName = "-")
-
-          result atPut(prettyNsName .. slotName, ns getLocalSlot(slotName) description))))
-    result)
 )
