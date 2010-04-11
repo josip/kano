@@ -109,8 +109,14 @@ ObjectDescriber := Object clone do(
       listFormatter := method(obj, options,
         joinWith := options ?at("joinWith")
         joinWith isNil ifTrue(joinWith = ", ")
+        
+        indent := options ?at("indent")
+        indent isNil ifTrue(indent = 0)
 
-        obj join(joinWith))
+        bullet := options ?at("bullet")
+        bullet = if(bullet isNil, "", bullet .. " ")
+
+        obj map(s, (bullet .. s) alignLeft(indent, " ")) join(joinWith))
 
       mapFormatter := method(obj, options,
         maxKeySize := obj keys map(size) max

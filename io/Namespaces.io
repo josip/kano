@@ -1,22 +1,30 @@
 Namespaces := Object clone do(
   //doc Namespaces Default The default namespace.
   Default := Namespace clone do(
-    _default := task()
+    _default := task(
+      "No task was given. See -T for list of available tasks." println)
   )
 
   /*doc Namespaces Options
   Tasks from this namespace are called only if their name is prepended with an dash. They can't take arguments.<br/>
-  <code>kano -verbose -version</code>*/
+  <code>kano -tasks</code>*/
   Options := Namespace clone do(
-    tasks := option(
+    T := option(
       """Lists all available tasks and options."""
+      ls := System launchScript split("/") last
 
-      allTasks := Kano allTasks
-      maxNameSize := allTasks map(n, v, n size) max
-      maxNameSize = if(maxNameSize isNil, 0, maxNameSize + 2)
+      Namespaces foreachSlot(nsName, ns,
+        (nsName colourize("cyan", "underline") .. ":") printlnColours
+        prettyNsName := if(nsName == "Default", "", nsName .. ":")
+        (nsName == "Options") ifTrue(prettyNsName = "-")
 
-      allTasks keys sort foreach(key,
-        ((key alignLeft(maxNameSize, " ")) .. (allTasks at(key))) println))
+        "  Usage: #{ls} #{prettyNsName}<task>\n" interpolate println
+        ns slotNames select(slot, (slot exSlice(0, 1) != "_") and (ns getLocalSlot(slot) type == "Block")) sort foreach(slot,
+          slotArgs := ns getSlot(slot) argumentNames map(arg, "<" .. arg ..">") join(" ")
+          slotC := slot colourize("cyan", "bold")
+          "  #{slotC} #{slotArgs}" interpolate printlnColours
+          ("    " .. ns getSlot(slot) description) println
+          "" println)))
 
     ns := option(
       """Lists all namespaces."""
@@ -24,14 +32,13 @@ Namespaces := Object clone do(
 
     V := option(
       """Prints Kano version."""
-      kanoPkg := File with((Eerie activeEnv path) .. "/addons/Kano/package.json")
-      pkgInfo := Yajl parseJson(kanoPkg openForReading contents)
-      ("Kano v" .. (pkgInfo at("version"))) println)
+      version := Eerie Env named("_base") packageNamed("Kano") config at("meta") at("version")
+      ("Kano v" .. version) println)
 
     help := option(
       """Quick usage notes."""
 
       options := Namespaces Options slotNames remove("type") sort join("|")
-      "Usage: kano [-#{options}] [namespace:]taskName arg1 arg2..." interpolate println)
+      "Usage: #{System launchScript} [-#{options}] [namespace:]taskName arg1 arg2..." interpolate println)
   )
 )
