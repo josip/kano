@@ -2,7 +2,8 @@ Namespaces := Object clone do(
   //doc Namespaces Default The default namespace.
   Default := Namespace clone do(
     _default := task(
-      "No task was given. See -T for list of available tasks." println)
+      if(System args size < 2,
+        "No task was specified. See -T for list of available tasks." println))
   )
 
   /*doc Namespaces Options
@@ -32,7 +33,7 @@ Namespaces := Object clone do(
           slotArgs := ns getSlot(slot) argumentNames map(arg, "<" .. arg ..">") join(" ")
           slotC := slot colourize("cyan", "bold")
           "  #{slotC} #{slotArgs}" interpolate printlnColours
-          ns getSlot(slot) description split("\n") map(alignLeft(4, " ")) join("\n") println
+          ns getSlot(slot) description split("\n") map(line, "    " .. line) join("\n") println
           "" println)))
 
     ns := option(

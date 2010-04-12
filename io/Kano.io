@@ -30,7 +30,7 @@ Kano := Object clone do(
     nsName := namespace asMutable makeFirstCharacterUppercase
     ns := Namespaces getSlot(nsName)
     ns isNil ifTrue(
-      Exception raise("Unknown namespace: " .. nsName))
+      Exception raise("Unknown namespace: " .. nsName .. ". Try -ns option"))
     
     if(ns hasLocalSlot(taskName),
       if(ns getSlot(taskName) type == "Block",
