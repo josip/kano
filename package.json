@@ -5,7 +5,7 @@
   "readme": "README.textile",
   "category": "Utility",
   "dependencies": {
-    "protos": "Yajl"
+    "protos": ["Yajl"]
   },
   "protos": ["Kano", "Namespace", "Namespaces", "ObjectDescriber"]
 }
