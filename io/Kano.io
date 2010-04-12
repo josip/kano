@@ -32,7 +32,7 @@ Kano := Object clone do(
     ns isNil ifTrue(
       Exception raise("Unknown namespace: " .. nsName))
     
-    if(ns hasSlot(taskName),
+    if(ns hasLocalSlot(taskName),
       if(ns getSlot(taskName) type == "Block",
         ns getSlot(taskName) performWithArgList("call", taskArgs)),
       Exception raise("Unknown task: " .. taskName)))
