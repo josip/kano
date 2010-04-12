@@ -5,16 +5,14 @@ Kano (from Greek Κάνω, _make_) is a simple "Make":http://www.gnu.org/softwar
 h2. Installation
 
 Kano will be installed automagically with "Eerie":http://github.com/josip/eerie as a dependency, but if you insist:
-<pre><code>
-$ eerie pkg:install git://github.com/josip/kano
+<pre><code>$ eerie install git://github.com/josip/kano
 </code></pre>
 
 h2. Usage
 
 You can use Kano just like any other Make-like tool, place a <code>Kanofile</code> or <code>make.io</code>
 into current working directory (tasks/ directory) and you're ready to go (Kano will actually check parent directories, too).
-<pre><code>
-$ kano -T
+<pre><code>$ kano -T
 Default:
   Usage: kano <task>
 

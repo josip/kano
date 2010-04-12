@@ -32,7 +32,7 @@ Namespaces := Object clone do(
           slotArgs := ns getSlot(slot) argumentNames map(arg, "<" .. arg ..">") join(" ")
           slotC := slot colourize("cyan", "bold")
           "  #{slotC} #{slotArgs}" interpolate printlnColours
-          ("    " .. (ns getSlot(slot) description)) println
+          ns getSlot(slot) description split("\n") map(alignLeft(4, " ")) join("\n") println
           "" println)))
 
     ns := option(

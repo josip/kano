@@ -4,7 +4,6 @@
   "description": "Rake-like utility for Io.",
   "readme": "README.textile",
   "category": "Utility",
-
   "dependencies": {
     "protos": "Yajl"
   },

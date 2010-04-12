@@ -1,7 +1,7 @@
 Kano := Object clone do(
   namespaceSeparator  := ":"
   useExternalFile    ::= true
-  supportedFiles      := list("Kanofile", "make.io")
+  supportedFiles      := list("make.io", "Kanofile", "kanofile", "Kanofile.io", "kanofile.io")
 
   run := method(
     self useExternalFile ifTrue(
