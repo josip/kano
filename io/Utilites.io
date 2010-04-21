@@ -16,6 +16,10 @@ Sequence colourize := method(colour, option,
 
   out)
 
+(System platform asLowercase == "darwin") ifFalse(
+  Sequence colourize = method(self))
+
 Sequence printlnColours := method(
   System system("echo \"#{self}\"" interpolate)
   self)
+
