@@ -31,11 +31,17 @@ Kano := Object clone do(
     ns := Namespaces getSlot(nsName)
     ns isNil ifTrue(
       Exception raise("Unknown namespace: " .. nsName .. ". Try -ns option"))
+
+    # If only namespace name is provided, "list" task
+    # should be called.
+    ns hasLocalSlot(taskName) ifFalse(
+      taskName = "list")
     
     if(ns hasLocalSlot(taskName),
       if(ns getSlot(taskName) type == "Block",
-        ns getSlot(taskName) performWithArgList("call", taskArgs)),
-      Exception raise("Unknown task: " .. taskName)))
+        ns getSlot(taskName) performWithArgList("call", taskArgs))
+    ,
+        Exception raise("Unknown task: " .. taskName)))
 
   findKanofiles := method(dir,
     dir isNil ifTrue(return(list()))
