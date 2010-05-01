@@ -17,7 +17,7 @@ Namespaces := Object clone do(
       Namespaces foreachSlot(nsName, ns,
         if(nsName == "type", continue)
 
-        (nsName colourize("cyan", "bold") .. ":") printlnColours
+        (nsName .. ":") println
         prettyNsName := if(nsName == "Default", "", (nsName asMutable makeFirstCharacterLowercase) .. ":")
         (nsName == "Options") ifTrue(prettyNsName = "-")
 
@@ -31,8 +31,7 @@ Namespaces := Object clone do(
 
         nsSlots foreach(slot,
           slotArgs := ns getSlot(slot) argumentNames map(arg, "<" .. arg ..">") join(" ")
-          slotC := slot colourize("cyan", "bold")
-          "  #{slotC} #{slotArgs}" interpolate printlnColours
+          "  #{slot} #{slotArgs}" interpolate println
           ns getSlot(slot) description split("\n") map(line, "    " .. line) join("\n") println
           "" println)))
 
